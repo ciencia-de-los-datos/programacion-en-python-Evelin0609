@@ -99,7 +99,7 @@ def pregunta_03():
             dictionary[i[0]] = i[1]
 
     dictionary = [(key, value) for key,value in dictionary.items()]
-    return dictionary
+    return dictionary;
 
 
 def pregunta_04():
