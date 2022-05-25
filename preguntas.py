@@ -29,9 +29,9 @@ def pregunta_01():
     data_1 = [i.split('\t') for i in file]
 
     suma = 0
-for i in data_1:
-    suma = suma + (int(i[1]))
-return suma
+    for i in data_1:
+        suma = suma + (int(i[1]))
+    return suma
 
 
 def pregunta_02():
@@ -49,7 +49,21 @@ def pregunta_02():
     ]
 
     """
-    return
+    Data = open('/content/data.csv','r')
+    file = Data.readlines()
+    data_1 = [i.replace('\n','') for i in file]
+    data_2 = [i.replace('"','') for i in data_1]
+    data_3 = [i.split('\t') for i in data_2]
+
+    dictionary = {}
+    for i in data_3:
+        if i[0] in dictionary.keys():
+            dictionary[i[0]] = dictionary[i[0]] + 1
+        else:
+            dictionary[i[0]] = 1
+
+    lista_dict = sorted(list(zip(dictionary.keys(), dictionary.values())))
+    return lista_dict
 
 
 def pregunta_03():
