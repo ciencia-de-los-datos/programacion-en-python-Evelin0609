@@ -99,7 +99,7 @@ def pregunta_03():
             dictionary[i[0]] = i[1]
 
     dictionary = [(key, value) for key,value in dictionary.items()]
-    return dictionary;
+    return dictionary
 
 
 def pregunta_04():
@@ -124,7 +124,22 @@ def pregunta_04():
     ]
 
     """
-    return
+    Data = open('/content/data.csv','r')
+    file = Data.readlines()
+    data_1 = [i.replace('\n','') for i in file]
+    data_2 = [i.split('\t') for i in data_1]
+    data_3 = [i[2].split('-') for i in data_2]
+
+    dictionary = {}
+
+    for n in sorted(i[2] for i in data_3):
+        if n in dictionary.keys():
+            dictionary[n] = dictionary[n] + 1
+        else:
+            dictionary[n] = 1
+
+    lista = list(dictionary.items())
+    return lista
 
 
 def pregunta_05():
@@ -142,7 +157,22 @@ def pregunta_05():
     ]
 
     """
-    return
+    Data = open('/content/data.csv','r')
+    file = Data.readlines()
+    data_1 = [i.replace('\n','') for i in file]
+    data_2 = [i.replace('"','') for i in data_1]
+    data_3 = [i.split('\t') for i in data_2]
+
+    dictionary = {}
+    for i in data_3:
+        if i[0] in dictionary.keys():
+            dictionary[i[0]].append(int(i[1]))
+        else:
+            dictionary[i[0]] = [int(i[1])]
+
+    resultado = [(a,max(dictionary[a]),min(dictionary[a])) for a in dictionary.keys()]
+    resultado = sorted(resultado, key=lambda tup: tup[0])
+    return resultado
 
 
 def pregunta_06():
@@ -167,7 +197,26 @@ def pregunta_06():
     ]
 
     """
-    return
+    data = open('data.csv', 'r').readlines()
+    data = [i.replace('\n', '') for i in data]
+    data = [i.replace('"', '') for i in data]
+    data = [i.split('\t') for i in data]
+    
+    data_lista = []
+    for a in [i[4].split(',') for i in data]:
+        data_lista.extend(a)
+    
+    dictionary = {}
+    for b in data_lista:
+        key = b.split(':')[0]
+        value = b.split(':')[1]
+        if key in dictionary.keys():
+            dictionary[key].append(int(value))
+        else:
+            dictionary[key] = [int(value)]
+    data_result = [(key, min(dictionary[key]), max(dictionary[key])) for key in dictionary.keys()]
+    sorted(data_result, key=lambda tup: tup[0])
+    return sorted(data_result, key=lambda tup: tup[0])
 
 
 def pregunta_07():
@@ -191,7 +240,24 @@ def pregunta_07():
     ]
 
     """
-    return
+    data = open('data.csv', 'r').readlines()
+    data = [i.replace('\n', '') for i in data]
+    data = [i.replace('"', '') for i in data]
+    data = [i.split('\t') for i in data]
+    data = [[row[1], row[0]] for row in data]
+
+    dictionary = {}
+
+    for i in data:
+        if i[0] in dictionary:
+            dictionary[i[0]] = dictionary[i[0]]+','+i[1]
+        else:
+            dictionary[i[0]] = i[1]
+    tupla_data = sorted(tuple((int(key), value.split(',')) for key, value in dictionary.items()))
+
+    for i in tupla_data:
+        print(i)
+    return tupla_data
 
 
 def pregunta_08():
@@ -216,7 +282,22 @@ def pregunta_08():
     ]
 
     """
-    return
+    data = open('data.csv', 'r').readlines()
+    data = [i.replace('\n', '') for i in data]
+    data = [i.replace('"', '') for i in data]
+    data = [i.split('\t') for i in data]
+
+    dictionary = {}
+    for i in data:
+        key = int(i[1])
+        if key in dictionary.keys():
+            dictionary[key].append(i[0])
+        else: 
+            dictionary[key] = [i[0]]
+    
+    data_result = sorted(list(dictionary.items()))
+    data_result = [(b[0], sorted(list(set(b[1])))) for b in data_result]
+    return data_result
 
 
 def pregunta_09():
@@ -239,7 +320,22 @@ def pregunta_09():
     }
 
     """
-    return
+    data = open('data.csv', 'r').readlines()
+    data = [row.replace('\n', '') for row in data]
+    data = [row.split('\t') for row in data]
+    data = [row[4] for row in data]
+    data = [row.split(',') for row in data]
+    data = [row for rowx in data for row in rowx]
+    data = [row.replace(":", ',') for row in data]
+    data = sorted([row.split(',') for row in data], key=None, reverse=False)
+
+    dictionary = {}
+    for i in data:
+        if i[0] in dictionary:
+            dictionary[i[0]] = dictionary[i[0]] + 1
+        else:
+            dictionary[i[0]] = 1
+    return dictionary
 
 
 def pregunta_10():
@@ -260,7 +356,13 @@ def pregunta_10():
 
 
     """
-    return
+    data = open('data.csv', 'r').readlines()
+    data = [i.replace('\n', '') for i in data]
+    data = [i.replace('"', '') for i in data]
+    data = [i.split('\t') for i in data]
+    
+    data_1 = [(row[0],len(row[3].split(',')),len(row[4].split(',')))for row in data]
+    return data_1
 
 
 def pregunta_11():
@@ -281,7 +383,21 @@ def pregunta_11():
 
 
     """
-    return
+    data = open('data.csv', 'r').readlines()
+    data = [i.replace('\n', '') for i in data]
+    data = [i.replace('"', '') for i in data]
+    data = [i.split('\t') for i in data]
+
+    dictionary = {}
+    for i in data:
+        for a in i[3].split(','):
+            if a in dictionary.keys():
+                dictionary[a] = dictionary[a] + int(i[1])
+            else:
+                dictionary[a] = int(i[1])
+    
+    data_result = list(dictionary.items())
+    return dict(sorted(data_result, key=lambda tup: tup[0]))
 
 
 def pregunta_12():
@@ -299,4 +415,18 @@ def pregunta_12():
     }
 
     """
-    return
+    data = open('data.csv', 'r').readlines()
+    data = [i.replace('\n', '') for i in data]
+    data = [i.replace('"', '') for i in data]
+    data = [i.split('\t') for i in data]
+
+    diccionario = {}
+    for i in data:
+        c = i[4].split(',')
+        if i[0] in diccionario.keys():
+            diccionario[i[0]] = diccionario[i[0]] + sum([int(e.split(':')[1]) for e in c])
+        else:
+            diccionario[i[0]] = sum([int(e.split(':')[1]) for e in c])
+    resultado = list(diccionario.items())
+    resultado = dict(sorted(resultado, key=lambda tup: tup[0]))
+    return resultado
