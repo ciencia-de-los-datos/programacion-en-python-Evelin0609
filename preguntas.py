@@ -81,7 +81,25 @@ def pregunta_03():
     ]
 
     """
-    return
+    Data = open('/content/data.csv','r')
+    file = Data.readlines()
+    data_1 = [i.replace('\n','') for i in file]
+    data_2 = [i.replace('"','') for i in data_1]
+    data_3 = [i.split('\t') for i in data_2]
+
+    for i in data_3:
+        data_3 = [[row[0], int(row[1])] for row in data_3]
+        data_list = sorted(data_3, key=None, reverse=False)
+
+    dictionary = {}
+    for i in data_list:
+        if i[0] in dictionary:
+            dictionary[i[0]] = dictionary[i[0]]+i[1]
+        else:
+            dictionary[i[0]] = i[1]
+
+    dictionary = [(key, value) for key,value in dictionary.items()]
+    return dictionary
 
 
 def pregunta_04():
