@@ -79,7 +79,7 @@ def pregunta_03():
         ("D", 31),
         ("E", 67),
     ]
-
+    
     """
     Data = open('/content/data.csv','r')
     file = Data.readlines()
